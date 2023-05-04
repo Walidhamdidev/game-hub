@@ -32,7 +32,7 @@ const PlatformIconList = ({ platforms }: Props) => {
 
   return (
     <>
-      <HStack marginTop={3}>
+      <HStack>
         {platforms.map((platform) => {
           const slug = platform.slug
             .replace(/-.*/, "")

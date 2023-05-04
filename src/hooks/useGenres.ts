@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CanceledError } from "../services/api-client";
-import { Genre } from "../services/genreService";
+import genreService, { Genre } from "../services/genreService";
 
 const useGenres = () => {
   const [genres, setGenres] = useState<Genre[]>([]);
