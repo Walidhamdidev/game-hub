@@ -6,9 +6,13 @@ import { Genre } from "../services/genreService";
 
 interface Props {
   onSelectedGenre: (genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
 
-const GenreList = ({ onSelectedGenre }: Props): JSX.Element | null => {
+const GenreList = ({
+  onSelectedGenre,
+  selectedGenre,
+}: Props): JSX.Element | null => {
   const { genres, error, isLoading } = useGenres();
   const skeletonItems = [1, 2, 3, 4, 5, 6];
 
@@ -30,6 +34,9 @@ const GenreList = ({ onSelectedGenre }: Props): JSX.Element | null => {
               <Button
                 variant="link"
                 fontSize="lg"
+                fontWeight={`${
+                  selectedGenre?.id === genre.id ? "bold" : "normal"
+                } `}
                 onClick={() => {
                   onSelectedGenre(genre);
                 }}
