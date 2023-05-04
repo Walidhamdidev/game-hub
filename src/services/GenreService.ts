@@ -1,4 +1,4 @@
-import apiClient from "./api-client";
+import create from "./httpService";
 
 export interface Genre {
   id: number;
@@ -10,20 +10,4 @@ interface ResponseGenre {
   results: Genre[];
 }
 
-class GenreService {
-  private endpoint: string;
-  constructor(endpoint: string) {
-    this.endpoint = endpoint;
-  }
-
-  getAllGenres() {
-    const controller = new AbortController();
-    const request = apiClient.get<ResponseGenre>(this.endpoint, {
-      signal: controller.signal,
-    });
-
-    return { request, cancel: () => controller.abort() };
-  }
-}
-
-export default new GenreService("/genres");
+export default create<ResponseGenre>("/genres");

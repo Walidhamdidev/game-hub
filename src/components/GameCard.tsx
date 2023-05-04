@@ -6,7 +6,7 @@ import {
   Image,
   SimpleGrid,
 } from "@chakra-ui/react";
-import { Game } from "../services/GameService";
+import { Game } from "../services/gameService";
 import PlatformIconList from "./PlatformIconList";
 import GameScore from "./GameScore";
 import CroppedImage from "../services/cropped-image";

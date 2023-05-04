@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { CanceledError } from "../services/api-client";
-import { Game } from "../services/GameService";
-import GameService from "../services/GameService";
+import gameService, { Game } from "../services/gameService";
 
 const useGames = () => {
   const [games, setGames] = useState<Game[]>([]);
@@ -10,7 +9,7 @@ const useGames = () => {
 
   useEffect(() => {
     setLoading(true);
-    const { request, cancel } = GameService.getAllGames();
+    const { request, cancel } = gameService.getAll();
 
     request
       .then((res) => {

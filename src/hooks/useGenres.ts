@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import GenreService, { Genre } from "../services/GenreService";
 import { CanceledError } from "../services/api-client";
+import { Genre } from "../services/genreService";
 
 const useGenres = () => {
   const [genres, setGenres] = useState<Genre[]>([]);
@@ -8,7 +8,7 @@ const useGenres = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const { request, cancel } = GenreService.getAllGenres();
+    const { request, cancel } = genreService.getAll();
     setLoading(true);
     request
       .then((res) => {

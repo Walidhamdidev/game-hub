@@ -1,4 +1,4 @@
-import apiClient from "./api-client";
+import create from "./httpService";
 
 export interface Platform {
   id: number;
@@ -19,20 +19,4 @@ interface ResponseGame {
   results: Game[];
 }
 
-class GameService {
-  private endpoint: string;
-  constructor(endpoint: string) {
-    this.endpoint = endpoint;
-  }
-
-  getAllGames() {
-    const controller = new AbortController();
-    const request = apiClient.get<ResponseGame>(this.endpoint, {
-      signal: controller.signal,
-    });
-
-    return { request, cancel: () => controller.abort() };
-  }
-}
-
-export default new GameService("/games");
+export default create<ResponseGame>("/games");
