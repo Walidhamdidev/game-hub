@@ -1,3 +1,4 @@
+import { Genre } from "./genreService";
 import create from "./httpService";
 
 export interface Platform {
@@ -12,6 +13,7 @@ export interface Game {
   background_image: string;
   platforms: { platform: Platform }[];
   metacritic: number;
+  genres: Genre[];
 }
 
 interface ResponseGame {

@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { CanceledError } from "../services/api-client";
 import gameService, { Game } from "../services/gameService";
+import { Genre } from "../services/genreService";
 
-const useGames = () => {
+const useGames = (seletedGenre: Genre | null) => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState<string>();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
-    const { request, cancel } = gameService.getAll();
+    const { request, cancel } = gameService.getAll(seletedGenre);
 
     request
       .then((res) => {
@@ -23,7 +24,7 @@ const useGames = () => {
       });
 
     return () => cancel();
-  }, []);
+  }, [seletedGenre?.id]);
 
   return { games, error, isLoading };
 };

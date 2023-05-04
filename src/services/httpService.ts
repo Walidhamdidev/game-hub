@@ -1,4 +1,5 @@
 import apiClient from "./api-client";
+import { Genre } from "./genreService";
 
 class HttpService<T> {
   private endpoint: string;
@@ -6,9 +7,12 @@ class HttpService<T> {
     this.endpoint = endpoint;
   }
 
-  getAll() {
+  getAll(seletedGenre: Genre | null) {
     const controller = new AbortController();
     const request = apiClient.get<T>(this.endpoint, {
+      params: {
+        genres: seletedGenre?.id,
+      },
       signal: controller.signal,
     });
 
