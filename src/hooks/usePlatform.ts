@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { CanceledError } from "../services/api-client";
-import genreService, { Genre } from "../services/genreService";
+import platformService, { Platform } from "../services/platformService";
 
-const useGenres = (seletedGenre: Genre | null) => {
-  const [genres, setGenres] = useState<Genre[]>([]);
+const usePlatforms = () => {
+  const [platforms, setPlatforms] = useState<Platform[]>([]);
   const [error, setError] = useState<string>("");
   const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const { request, cancel } = genreService.getAll(seletedGenre);
+    const { request, cancel } = platformService.getAll();
     setLoading(true);
     request
       .then((res) => {
-        setGenres(res.data.results);
+        setPlatforms(res.data.results);
         setLoading(false);
       })
       .catch((err) => {
@@ -23,7 +23,7 @@ const useGenres = (seletedGenre: Genre | null) => {
     return () => cancel();
   }, []);
 
-  return { genres, error, isLoading };
+  return { platforms, error, isLoading };
 };
 
-export default useGenres;
+export default usePlatforms;

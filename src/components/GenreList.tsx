@@ -13,7 +13,7 @@ const GenreList = ({
   onSelectedGenre,
   selectedGenre,
 }: Props): JSX.Element | null => {
-  const { genres, error, isLoading } = useGenres();
+  const { genres, error, isLoading } = useGenres(selectedGenre);
   const skeletonItems = [1, 2, 3, 4, 5, 6];
 
   if (error) return null;
