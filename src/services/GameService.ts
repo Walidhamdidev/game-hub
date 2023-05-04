@@ -20,7 +20,7 @@ interface ResponseGame {
 }
 
 class GameService {
-  endpoint: string;
+  private endpoint: string;
   constructor(endpoint: string) {
     this.endpoint = endpoint;
   }
