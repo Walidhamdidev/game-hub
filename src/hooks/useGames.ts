@@ -1,23 +1,16 @@
 import { useState, useEffect } from "react";
 import { CanceledError } from "../services/api-client";
 import gameService, { Game } from "../services/gameService";
-import { Genre } from "../services/genreService";
-import { Platform } from "../services/platformService";
+import { GameQuery } from "../App";
 
-const useGames = (
-  seletedGenre?: Genre | null,
-  selectedPlatform?: Platform | null
-) => {
+const useGames = (gameQuery: GameQuery) => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState<string>();
   const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
-    const { request, cancel } = gameService.getAll(
-      seletedGenre,
-      selectedPlatform
-    );
+    const { request, cancel } = gameService.getAll(gameQuery);
 
     request
       .then((res) => {
@@ -31,7 +24,7 @@ const useGames = (
       });
 
     return () => cancel();
-  }, [seletedGenre?.id, selectedPlatform?.id]);
+  }, [gameQuery?.genre?.id, gameQuery?.platform?.id]);
 
   return { games, error, isLoading };
 };

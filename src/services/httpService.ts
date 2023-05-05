@@ -1,6 +1,5 @@
+import { GameQuery } from "../App";
 import apiClient from "./api-client";
-import { Platform } from "./gameService";
-import { Genre } from "./genreService";
 
 class HttpService<T> {
   private endpoint: string;
@@ -8,12 +7,12 @@ class HttpService<T> {
     this.endpoint = endpoint;
   }
 
-  getAll(seletedGenre?: Genre | null, selectedPlatform?: Platform | null) {
+  getAll(gameQuery: GameQuery) {
     const controller = new AbortController();
     const request = apiClient.get<T>(this.endpoint, {
       params: {
-        genres: seletedGenre?.id,
-        platforms: selectedPlatform?.id,
+        genres: gameQuery?.genre?.id,
+        platforms: gameQuery?.platform?.id,
       },
       signal: controller.signal,
     });

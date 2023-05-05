@@ -18,7 +18,14 @@ const GenreList = ({
 
   if (error) return null;
 
-  if (isLoading) skeletonItems.map((item) => <GenreListSkeleton key={item} />);
+  if (isLoading)
+    return (
+      <>
+        {skeletonItems.map((item) => (
+          <GenreListSkeleton key={item} />
+        ))}
+      </>
+    );
 
   return (
     <>
