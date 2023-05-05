@@ -8,11 +8,11 @@ import PlatformsList from "./components/PlatformsList";
 import { Platform } from "./services/platformService";
 import SortSelector from "./components/SortSelector";
 
-
 export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
   sort: string | null;
+  searchTerm: string | null;
 }
 
 function App() {
@@ -30,7 +30,11 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <Navbar />
+        <Navbar
+          onSearchTerm={(searchTerm) =>
+            setGameQuery({ ...gameQuery, searchTerm })
+          }
+        />
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>

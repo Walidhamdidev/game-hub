@@ -14,6 +14,7 @@ class HttpService<T> {
         genres: gameQuery?.genre?.id,
         platforms: gameQuery?.platform?.id,
         ordering: gameQuery?.sort,
+        search: gameQuery?.searchTerm,
       },
       signal: controller.signal,
     });

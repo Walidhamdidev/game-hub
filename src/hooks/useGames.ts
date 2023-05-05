@@ -24,7 +24,12 @@ const useGames = (gameQuery: GameQuery) => {
       });
 
     return () => cancel();
-  }, [gameQuery?.genre?.id, gameQuery?.platform?.id, gameQuery?.sort]);
+  }, [
+    gameQuery?.genre?.id,
+    gameQuery?.platform?.id,
+    gameQuery?.sort,
+    gameQuery?.searchTerm,
+  ]);
 
   return { games, error, isLoading };
 };
