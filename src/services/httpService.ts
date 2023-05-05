@@ -7,7 +7,7 @@ class HttpService<T> {
     this.endpoint = endpoint;
   }
 
-  getAll(gameQuery: GameQuery) {
+  getAll(gameQuery?: GameQuery) {
     const controller = new AbortController();
     const request = apiClient.get<T>(this.endpoint, {
       params: {

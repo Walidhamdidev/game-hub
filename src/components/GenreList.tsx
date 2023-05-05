@@ -13,14 +13,14 @@ import { Genre } from "../services/genreService";
 
 interface Props {
   onSelectedGenre: (genre: Genre) => void;
-  selectedGenre: Genre | null;
+  selectedGenre?: Genre | null;
 }
 
 const GenreList = ({
   onSelectedGenre,
   selectedGenre,
 }: Props): JSX.Element | null => {
-  const { genres, error, isLoading } = useGenres(selectedGenre);
+  const { genres, error, isLoading } = useGenres();
   const skeletonItems = [1, 2, 3, 4, 5, 6];
 
   if (error) return null;

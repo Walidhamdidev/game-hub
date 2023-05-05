@@ -1,29 +1,30 @@
-import { useEffect, useState } from "react";
-import { CanceledError } from "../services/api-client";
-import genreService, { Genre } from "../services/genreService";
+// import { useEffect, useState } from "react";
+// import { CanceledError } from "../services/api-client";
+// import genreService from "../services/genreService";
+import localGenres from "../data/genres";
 
-const useGenres = (seletedGenre: Genre | null) => {
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const [error, setError] = useState<string>("");
-  const [isLoading, setLoading] = useState<boolean>(false);
+const useGenres = () => {
+  // const [genres, setGenres] = useState<Genre[]>([]);
+  // const [error, setError] = useState<string>("");
+  // const [isLoading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const { request, cancel } = genreService.getAll(seletedGenre);
-    setLoading(true);
-    request
-      .then((res) => {
-        setGenres(res.data.results);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
-    return () => cancel();
-  }, []);
+  // useEffect(() => {
+  //   const { request, cancel } = genreService.getAll();
+  //   setLoading(true);
+  //   request
+  //     .then((res) => {
+  //       setGenres(res.data.results);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       if (err instanceof CanceledError) return;
+  //       setError(err.message);
+  //       setLoading(false);
+  //     });
+  //   return () => cancel();
+  // }, []);
 
-  return { genres, error, isLoading };
+  return { genres: localGenres, error: null, isLoading: null };
 };
 
 export default useGenres;
