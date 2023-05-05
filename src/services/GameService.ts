@@ -14,6 +14,7 @@ export interface Game {
   platforms: { platform: Platform }[];
   metacritic: number;
   genres: Genre[];
+  rating_top: number;
 }
 
 interface ResponseGame {
