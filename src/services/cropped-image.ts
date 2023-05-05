@@ -1,9 +1,8 @@
-// https://media.rawg.io/media/ [0]
-//
-// games/456/456dea5e1c7e3cd07060c14e96612001.jpg [1]
+import noImage from "../assets/placeholder.png";
 
 const CroppedImage = (url: string) => {
-  if (!url) return "";
+  if (!url) return noImage;
+
   const firstPart = url.split("/media/")[0];
   const secondPart = url.split("/media/")[1];
   const newUrl = firstPart + "/media/crop/600/400/" + secondPart;
