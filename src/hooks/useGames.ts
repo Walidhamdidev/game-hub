@@ -24,7 +24,7 @@ const useGames = (gameQuery: GameQuery) => {
       });
 
     return () => cancel();
-  }, [gameQuery?.genre?.id, gameQuery?.platform?.id]);
+  }, [gameQuery?.genre?.id, gameQuery?.platform?.id, gameQuery?.sort]);
 
   return { games, error, isLoading };
 };

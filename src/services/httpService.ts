@@ -13,6 +13,7 @@ class HttpService<T> {
       params: {
         genres: gameQuery?.genre?.id,
         platforms: gameQuery?.platform?.id,
+        ordering: gameQuery?.sort,
       },
       signal: controller.signal,
     });
