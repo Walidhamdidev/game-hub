@@ -27,7 +27,11 @@ const PlatformsList = ({
 
   return (
     <Menu>
-      <MenuButton as={Button} rightIcon={<BsChevronDown />}>
+      <MenuButton
+        as={Button}
+        size={{ base: "sm", md: "md" }}
+        rightIcon={<BsChevronDown />}
+      >
         {selectedPlatform?.name ?? "Platform"}
       </MenuButton>
       <MenuList>
