@@ -1,14 +1,9 @@
+import { Genre } from "../hooks/useGenres";
 import create from "./httpService";
 
-export interface Genre {
-  id: number;
-  name: string;
-  image_background: string;
-}
-
-export interface ResponseGenre {
+export interface FetchResponse<T> {
   count: number;
-  results: Genre[];
+  results: T[];
 }
 
-export default create<ResponseGenre>("/genres");
+export default create<FetchResponse<Genre>>("/genres");

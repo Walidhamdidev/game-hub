@@ -1,24 +1,29 @@
-import { ResponseGame } from "../services/gameService";
 import { GameQuery } from "../App";
-import { useQuery } from "react-query";
-import apiClient from "../services/api-client";
+import { useInfiniteQuery } from "react-query";
+import { FetchResponse } from "../services/api-client";
+import { Platform } from "./usePlatform";
+import { Genre } from "./useGenres";
+import gameService from "../services/gameService";
+
+export interface Game {
+  id: number;
+  name: string;
+  background_image: string;
+  platforms: { platform: Platform }[];
+  metacritic: number;
+  genres: Genre[];
+  rating_top: number;
+}
 
 const useGames = (gameQuery: GameQuery) =>
-  useQuery<ResponseGame, Error>({
+  useInfiniteQuery<FetchResponse<Game>, Error>({
     staleTime: 24 * 60 * 60 * 1000,
-    // initialData:{cou},
+    getNextPageParam: (lastPage, allPage) => {
+      return lastPage.next ? allPage.length + 1 : undefined;
+    },
     queryKey: ["games", gameQuery],
-    queryFn: () =>
-      apiClient
-        .get<ResponseGame>("/games", {
-          params: {
-            genres: gameQuery?.genre?.id,
-            patent_platforms: gameQuery?.platform?.id,
-            ordering: gameQuery?.sort,
-            search: gameQuery?.searchTerm,
-          },
-        })
-        .then((res) => res.data),
+    queryFn: ({ pageParam = 1 }) =>
+      gameService.getAll(gameQuery, pageParam).request.then((res) => res.data),
   });
 
 export default useGames;

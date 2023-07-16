@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import usePlatforms from "../hooks/usePlatform";
-import { Platform } from "../services/platformService";
+import { Platform } from "../hooks/usePlatform";
 
 interface Props {
   onSelectedPlatform: (platform: Platform) => void;

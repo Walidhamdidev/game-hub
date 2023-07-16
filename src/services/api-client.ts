@@ -7,6 +7,12 @@ const apiClient = axios.create({
   },
 });
 
+export interface FetchResponse<T> {
+  next: number;
+  count: number;
+  results: T[];
+}
+
 export { CanceledError };
 
 export default apiClient;

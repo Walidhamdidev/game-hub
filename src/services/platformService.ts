@@ -1,14 +1,9 @@
+import { Platform } from "../hooks/usePlatform";
 import create from "./httpService";
 
-export interface Platform {
-  id: number;
-  name: string;
-  slug: string;
-}
-
-export interface ResponsePlatform {
+export interface FetchResponse<T> {
   count: number;
-  results: Platform[];
+  results: T[];
 }
 
-export default create<ResponsePlatform>("/platforms/lists/parents");
+export default create<FetchResponse<Platform>>("/platforms/lists/parents");

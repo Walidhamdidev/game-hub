@@ -7,7 +7,7 @@ class HttpService<T> {
     this.endpoint = endpoint;
   }
 
-  getAll(gameQuery?: GameQuery) {
+  getAll(gameQuery?: GameQuery,page?:number) {
     const controller = new AbortController();
     const request = apiClient.get<T>(this.endpoint, {
       params: {
@@ -15,6 +15,7 @@ class HttpService<T> {
         platforms: gameQuery?.platform?.id,
         ordering: gameQuery?.sort,
         search: gameQuery?.searchTerm,
+        page
       },
       signal: controller.signal,
     });
