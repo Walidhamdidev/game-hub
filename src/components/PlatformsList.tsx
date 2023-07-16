@@ -7,19 +7,20 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
-import usePlatforms from "../hooks/usePlatform";
-import { Platform } from "../hooks/usePlatform";
+import usePlatforms, { Platform } from "../hooks/usePlatforms";
+import usePlatform from "../hooks/usePlatform";
 
 interface Props {
   onSelectedPlatform: (platform: Platform) => void;
-  selectedPlatform: Platform | null;
+  selectedPlatformId?: number;
 }
 
 const PlatformsList = ({
   onSelectedPlatform,
-  selectedPlatform,
+  selectedPlatformId,
 }: Props): JSX.Element | null => {
   const { data: platforms, error, isLoading } = usePlatforms();
+  const selectedPlatform = usePlatform(selectedPlatformId);
 
   if (error) return null;
 
@@ -32,7 +33,7 @@ const PlatformsList = ({
         size={{ base: "sm", md: "md" }}
         rightIcon={<BsChevronDown />}
       >
-        {selectedPlatform?.name ?? "Platform"}
+        {selectedPlatform?.name || "Platform"}
       </MenuButton>
       <MenuList>
         {platforms?.results.map((platform) => (

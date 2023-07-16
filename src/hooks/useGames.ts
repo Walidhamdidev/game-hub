@@ -1,7 +1,7 @@
 import { GameQuery } from "../App";
 import { useInfiniteQuery } from "react-query";
 import { FetchResponse } from "../services/api-client";
-import { Platform } from "./usePlatform";
+import { Platform } from "./usePlatforms";
 import { Genre } from "./useGenres";
 import gameService from "../services/gameService";
 
