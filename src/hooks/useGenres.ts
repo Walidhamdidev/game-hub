@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import genres from "../data/genres";
 import genreService from "../services/genreService";
+import ms from "ms";
 
 export interface Genre {
   id: number;
@@ -10,7 +11,7 @@ export interface Genre {
 
 const useGenres = () =>
   useQuery({
-    staleTime: 24 * 60 * 60 * 1000,
+    staleTime: ms("24h"),
     initialData: genres,
     queryKey: ["genres"],
     queryFn: () => genreService.getAll().request.then((res) => res.data),

@@ -4,6 +4,7 @@ import { FetchResponse } from "../services/api-client";
 import { Platform } from "./usePlatforms";
 import { Genre } from "./useGenres";
 import gameService from "../services/gameService";
+import ms from "ms";
 
 export interface Game {
   id: number;
@@ -17,7 +18,7 @@ export interface Game {
 
 const useGames = (gameQuery: GameQuery) =>
   useInfiniteQuery<FetchResponse<Game>, Error>({
-    staleTime: 24 * 60 * 60 * 1000,
+    staleTime: ms("24h"),
     getNextPageParam: (lastPage, allPage) => {
       return lastPage.next ? allPage.length + 1 : undefined;
     },
