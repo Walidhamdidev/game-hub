@@ -17,7 +17,7 @@ export interface Game {
   rating_top: number;
 }
 
-interface ResponseGame {
+export interface ResponseGame {
   count: number;
   results: Game[];
 }

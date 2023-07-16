@@ -1,30 +1,15 @@
-// import { useEffect, useState } from "react";
-// import { CanceledError } from "../services/api-client";
-// import platformService from "../services/platformService";
-import localPlatforms from "../data/platforms";
+import { useQuery } from "react-query";
+import platforms from "../data/platforms";
+import apiClient from "../services/api-client";
+import { ResponsePlatform } from "../services/platformService";
 
-const usePlatforms = () => {
-  // const [platforms, setPlatforms] = useState<Platform[]>([]);
-  // const [error, setError] = useState<string>("");
-  // const [isLoading, setLoading] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   const { request, cancel } = platformService.getAll();
-  //   setLoading(true);
-  //   request
-  //     .then((res) => {
-  //       setPlatforms(res.data.results);
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       if (err instanceof CanceledError) return;
-  //       setError(err.message);
-  //       setLoading(false);
-  //     });
-  //   return () => cancel();
-  // }, []);
-
-  return { platforms: localPlatforms, error: null, isLoading: null };
-};
+const usePlatforms = () =>
+  useQuery({
+    staleTime: 24 * 60 * 60 * 1000,
+    initialData: { count: platforms.length, results: platforms },
+    queryKey: ["platforms"],
+    queryFn: () =>
+      apiClient.get<ResponsePlatform>("/platforms").then((res) => res.data),
+  });
 
 export default usePlatforms;

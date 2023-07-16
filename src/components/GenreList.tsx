@@ -20,7 +20,7 @@ const GenreList = ({
   onSelectedGenre,
   selectedGenre,
 }: Props): JSX.Element | null => {
-  const { genres, error, isLoading } = useGenres();
+  const { data: genres, error, isLoading } = useGenres();
   const skeletonItems = [1, 2, 3, 4, 5, 6];
 
   if (error) return null;
@@ -40,7 +40,7 @@ const GenreList = ({
         Genre
       </Heading>
       <List>
-        {genres.map((genre) => (
+        {genres?.results.map((genre) => (
           <ListItem key={genre.id} paddingY="5px">
             <HStack>
               <Image

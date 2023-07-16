@@ -6,7 +6,7 @@ export interface Genre {
   image_background: string;
 }
 
-interface ResponseGenre {
+export interface ResponseGenre {
   count: number;
   results: Genre[];
 }

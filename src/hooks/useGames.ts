@@ -1,37 +1,24 @@
-import { useState, useEffect } from "react";
-import { CanceledError } from "../services/api-client";
-import gameService, { Game } from "../services/gameService";
+import { ResponseGame } from "../services/gameService";
 import { GameQuery } from "../App";
+import { useQuery } from "react-query";
+import apiClient from "../services/api-client";
 
-const useGames = (gameQuery: GameQuery) => {
-  const [games, setGames] = useState<Game[]>([]);
-  const [error, setError] = useState<string>();
-  const [isLoading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setLoading(true);
-    const { request, cancel } = gameService.getAll(gameQuery);
-
-    request
-      .then((res) => {
-        setGames(res.data.results);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
-
-    return () => cancel();
-  }, [
-    gameQuery?.genre?.id,
-    gameQuery?.platform?.id,
-    gameQuery?.sort,
-    gameQuery?.searchTerm,
-  ]);
-
-  return { games, error, isLoading };
-};
+const useGames = (gameQuery: GameQuery) =>
+  useQuery<ResponseGame, Error>({
+    staleTime: 24 * 60 * 60 * 1000,
+    // initialData:{cou},
+    queryKey: ["games", gameQuery],
+    queryFn: () =>
+      apiClient
+        .get<ResponseGame>("/games", {
+          params: {
+            genres: gameQuery?.genre?.id,
+            patent_platforms: gameQuery?.platform?.id,
+            ordering: gameQuery?.sort,
+            search: gameQuery?.searchTerm,
+          },
+        })
+        .then((res) => res.data),
+  });
 
 export default useGames;

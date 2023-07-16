@@ -6,7 +6,7 @@ export interface Platform {
   slug: string;
 }
 
-interface ResponsePlatform {
+export interface ResponsePlatform {
   count: number;
   results: Platform[];
 }

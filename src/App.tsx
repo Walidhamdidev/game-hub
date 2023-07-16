@@ -55,7 +55,7 @@ function App() {
           <Flex gap={5} marginBottom="15px">
             <PlatformsList
               selectedPlatform={gameQuery.platform}
-              onSeletedPlatform={(platform) =>
+              onSelectedPlatform={(platform) =>
                 setGameQuery({ ...gameQuery, platform })
               }
             />

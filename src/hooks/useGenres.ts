@@ -1,30 +1,15 @@
-// import { useEffect, useState } from "react";
-// import { CanceledError } from "../services/api-client";
-// import genreService from "../services/genreService";
-import localGenres from "../data/genres";
+import { useQuery } from "react-query";
+import apiClient from "../services/api-client";
+import { ResponseGenre } from "../services/genreService";
+import genres from "../data/genres";
 
-const useGenres = () => {
-  // const [genres, setGenres] = useState<Genre[]>([]);
-  // const [error, setError] = useState<string>("");
-  // const [isLoading, setLoading] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   const { request, cancel } = genreService.getAll();
-  //   setLoading(true);
-  //   request
-  //     .then((res) => {
-  //       setGenres(res.data.results);
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       if (err instanceof CanceledError) return;
-  //       setError(err.message);
-  //       setLoading(false);
-  //     });
-  //   return () => cancel();
-  // }, []);
-
-  return { genres: localGenres, error: null, isLoading: null };
-};
+const useGenres = () =>
+  useQuery({
+    staleTime: 24 * 60 * 60 * 1000,
+    initialData: { count: genres.length, results: genres },
+    queryKey: ["genres"],
+    queryFn: () =>
+      apiClient.get<ResponseGenre>("/genres").then((res) => res.data),
+  });
 
 export default useGenres;
