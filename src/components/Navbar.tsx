@@ -3,15 +3,13 @@ import logo from "../assets/logo.webp";
 import SwitchModeSwitch from "./SwitchModeSwitch";
 import SearchInput from "./SearchInput";
 
-interface Props {
-  onSearchTerm: (searchTerm: string) => void;
-}
 
-const Navbar = ({ onSearchTerm }: Props) => {
+const Navbar = () => {
+
   return (
     <HStack padding="10px" fontSize={{ base: "sm", md: "md" }}>
       <Image boxSize={{ base: "40px", md: "60px" }} src={logo} alt="logo" />
-      <SearchInput onSearchTerm={onSearchTerm} />
+      <SearchInput/>
       <SwitchModeSwitch />
     </HStack>
   );

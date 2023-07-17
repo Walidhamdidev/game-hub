@@ -1,5 +1,11 @@
-import { GameQuery } from "../App";
 import apiClient from "./api-client";
+
+interface GameQuery {
+  genreId?: number;
+  platformId?: number;
+  sort?: string;
+  searchTerm?: string;
+}
 
 class HttpService<T> {
   private endpoint: string;
@@ -7,15 +13,15 @@ class HttpService<T> {
     this.endpoint = endpoint;
   }
 
-  getAll(gameQuery?: GameQuery,page?:number) {
+  getAll(gameQuery?: GameQuery, page?: number) {
     const controller = new AbortController();
     const request = apiClient.get<T>(this.endpoint, {
       params: {
-        genres: gameQuery?.genre?.id,
-        platforms: gameQuery?.platform?.id,
+        genres: gameQuery?.genreId,
+        platforms: gameQuery?.platformId,
         ordering: gameQuery?.sort,
         search: gameQuery?.searchTerm,
-        page
+        page,
       },
       signal: controller.signal,
     });

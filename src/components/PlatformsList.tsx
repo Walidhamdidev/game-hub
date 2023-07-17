@@ -7,20 +7,15 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
-import usePlatforms, { Platform } from "../hooks/usePlatforms";
 import usePlatform from "../hooks/usePlatform";
+import usePlatforms from "../hooks/usePlatforms";
+import useGameQueryStore from "../store";
 
-interface Props {
-  onSelectedPlatform: (platform: Platform) => void;
-  selectedPlatformId?: number;
-}
+const PlatformsList = (): JSX.Element | null => {
+  const onSelectedPlatform = useGameQueryStore((s) => s.onSelectedPlatform);
 
-const PlatformsList = ({
-  onSelectedPlatform,
-  selectedPlatformId,
-}: Props): JSX.Element | null => {
   const { data: platforms, error, isLoading } = usePlatforms();
-  const selectedPlatform = usePlatform(selectedPlatformId);
+  const selectedPlatform = usePlatform();
 
   if (error) return null;
 
@@ -38,7 +33,7 @@ const PlatformsList = ({
       <MenuList>
         {platforms?.results.map((platform) => (
           <MenuItem
-            onClick={() => onSelectedPlatform(platform)}
+            onClick={() => onSelectedPlatform(platform.id)}
             key={platform.id}
           >
             {platform.name}
